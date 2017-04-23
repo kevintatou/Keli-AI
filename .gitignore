@@ -1,3 +1,7 @@
+__init__.py
+test.py
+model.ckpt
+lexicon.pickle
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

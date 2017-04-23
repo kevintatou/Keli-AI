@@ -1,9 +1,28 @@
-from flask import Flask
+from flask import Flask, request
+import test
+import json
+import importlib
+import tensorflow as tf
 app = Flask(__name__)
 
-@app.route("/")
+
+
+sent_list = []
+
+# gets post data and sends it to our AI to analyse
 def hello():
-    return "Hello World!"
+    sentiment = {"pos_or_neg": test.use_neural_network}
+    name=request.get_json() 
+    print()
+    if request.method == 'POST':
+        return json.dumps(sentiment['pos_or_neg'](name[0]['question']))
+
+@app.route("/", methods=['POST'])
+def index():
+    test.reset()        # Resets our graph
+    importlib.reload(test) #reloads import test
+    return hello()
+    
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
