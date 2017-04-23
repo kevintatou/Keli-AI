@@ -10,10 +10,9 @@ app = Flask(__name__)
 sent_list = []
 
 # gets post data and sends it to our AI to analyse
-def hello():
+def post():
     sentiment = {"pos_or_neg": test.use_neural_network}
     name=request.get_json() 
-    print()
     if request.method == 'POST':
         return json.dumps(sentiment['pos_or_neg'](name[0]['question']))
 
@@ -21,7 +20,7 @@ def hello():
 def index():
     test.reset()        # Resets our graph
     importlib.reload(test) #reloads import test
-    return hello()
+    return post()
     
 
 if __name__ == "__main__":
