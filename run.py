@@ -3,6 +3,8 @@ import test
 import json
 import importlib
 import tensorflow as tf
+from flask_cors import CORS, cross_origin
+
 app = Flask(__name__)
 
 
@@ -17,11 +19,13 @@ def post():
         return json.dumps(sentiment['pos_or_neg'](name[0]['question']))
 
 @app.route("/", methods=['POST'])
+@cross_origin()
 def index():
     test.reset()        # Resets our graph
     importlib.reload(test) #reloads import test
+    print("WORKS")
     return post()
     
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
